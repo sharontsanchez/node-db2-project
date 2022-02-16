@@ -36,7 +36,14 @@ const checkCarPayload = (req, res, next) => {
 }
 
 const checkVinNumberValid = (req, res, next) => {
-  next()
+  if(vin.validate(req.body.vin)){
+    next()
+  } else{
+    next({
+      status: 400,
+      message: `vin ${req.params.vin} is invalid`,
+    })
+  }
 }
 
 const checkVinNumberUnique = (req, res, next) => {
